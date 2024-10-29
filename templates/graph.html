@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saisie des stocks et des dates</title>
+
+    <!-- Google Fonts and ApexCharts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.26.0/dist/apexcharts.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!-- D3.js, Chart.js, and ApexCharts JS -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo_finary.png') }}" alt="Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Fonctionnalités</a></li>
+                <li><a href="#">Tarifs</a></li>
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn">Se connecter</button>
+                <button class="btn btn-primary">Inscription</button>
+            </div>
+        </nav>
+    </header>
+
+   <section class="form-section">
+    <div class="container">
+        <h2>Résumé du Portefeuille :</h2>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-title">Retour Moyen Annuel :</span> {{annualized_return}}
+            </div>
+            <div class="stat-item">
+                <span class="stat-title">Ecart Type :<BR> </span> {{portfolio_std}}
+            </div>
+            <div class="stat-item">
+                <span class="stat-title">Ratio de Sharpe :</span> {{sharpe_ratio}}
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-item">
+                <canvas id="Evolution Chart" width="800" height="500"></canvas>
+            </div>
+            <div class="chart-item">
+                                <canvas id="Pie Chart Weights" width="500" height="400"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-item">
+                <div id="Correlation"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer>
+        <p>&copy; 2024 Finary. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Doughnut Chart for Portfolio Weights -->
+    <script>
+        const labels = {{ labels|tojson }};
+        const sizes = {{ sizes|tojson }};
+
+        const ctxWeight = document.getElementById('Pie Chart Weights').getContext('2d');
+        const weightChart = new Chart(ctxWeight, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Poids du Portefeuille',
+                    data: sizes,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'white'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.labels || '';
+                                let value = context.raw || 0;
+                                return label + ': ' + value * 100. + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Heatmap for Correlations -->
+    <script>
+        var container = d3.select("#Correlation"),
+            containerWidth = container.node().getBoundingClientRect().width,
+            containerHeight = containerWidth;
+
+        var margin = {top: 30, right: 30, bottom: 30, left: 60},
+            width = containerWidth - margin.left - margin.right,
+            height = containerHeight - margin.top - margin.bottom;
+
+        var svg = container.append("svg")
+            .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        const correlationData = {{ correlations | tojson }};
+        const stockLabels = {{ stock_labels | tojson }};
+
+        var x = d3.scaleBand().range([0, width]).domain(stockLabels).padding(0.05);
+        svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x)).selectAll("text").style("fill", "white");
+
+        var y = d3.scaleBand().range([height, 0]).domain(stockLabels).padding(0.05);
+        svg.append("g").call(d3.axisLeft(y)).selectAll("text").style("fill", "white");
+
+        var myColor = d3.scaleLinear().range(["#008000", "#f60303"]).domain([-0.5, 1]);
+
+        var heatmapData = [];
+        for (let i = 0; i < correlationData.length; i++) {
+            for (let j = 0; j < correlationData[i].length; j++) {
+                heatmapData.push({group: stockLabels[i], variable: stockLabels[j], value: correlationData[i][j]});
+            }
+        }
+
+        var tooltip = d3.select("#Correlation").append("div").style("opacity", 0).attr("class", "tooltip").style("background-color", "black")
+            .style("border", "solid").style("border-width", "1px").style("border-radius", "5px").style("padding", "10px");
+
+        var mouseover = function() { tooltip.style("opacity", 1); };
+        var mousemove = function(event, d) {
+            tooltip.html("Correlation: " + d.value).style("left", (event.pageX + 70) + "px").style("top", (event.pageY) + "px");
+        };
+        var mouseleave = function() { tooltip.style("opacity", 0); };
+
+        svg.selectAll().data(heatmapData, function(d) { return d.group + ':' + d.variable; }).enter()
+            .append("rect").attr("x", function(d) { return x(d.group); }).attr("y", function(d) { return y(d.variable); })
+            .attr("width", x.bandwidth()).attr("height", y.bandwidth()).style("fill", function(d) { return myColor(d.value); })
+            .on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
+    </script>
+
+    <!-- Portfolio Evolution Line Chart -->
+    <script>
+    // Data passed from Flask backend
+    const dates = {{ date_strings|tojson }};
+    const stockPrices = {{ prices|tojson }};
+    const weights = {{ sizes|tojson }};
+
+    // Calculate the initial portfolio value (at the first date)
+    const initialPortfolioValue = stockPrices.reduce((sum, stockPricesArr, stockIdx) => {
+        return sum + stockPricesArr[0] * weights[stockIdx];
+    }, 0);
+
+    // Calculate portfolio value at each date and scale it so that it starts at $100
+    const portfolioValues = dates.map((_, idx) => {
+        const currentPortfolioValue = stockPrices.reduce((sum, stockPricesArr, stockIdx) => {
+            return sum + stockPricesArr[idx] * weights[stockIdx];
+        }, 0);
+        // Normalize the portfolio value to start at $100
+        return (currentPortfolioValue / initialPortfolioValue) * 100;
+    });
+    // Total Return Calculation
+const finalPortfolioValue = portfolioValues[portfolioValues.length - 1]; // Last portfolio value
+const totalReturn = ((finalPortfolioValue - 100) / 100) * 100; // % increase from initial $100
+
+    // Create a line chart with Chart.js
+    const ctx = document.getElementById('Evolution Chart').getContext('2d');
+    const portfolioChart = new Chart(ctx, {
+        type: 'line',  // Set chart type to 'line'
+        data: {
+            labels: dates, // Dates for the x-axis
+            datasets: [{
+                label: 'Portfolio Value',
+                data: portfolioValues, // Portfolio values for y-axis (normalized)
+                borderColor: 'rgba(244,162,97)', // Line color
+                pointRadius: 0,
+                borderWidth: 2,
+                fill: false,  // No fill under the line
+                tension: 0.1  // Slight curve in the line
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'  // Set x-axis tick labels (dates) color to white
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Portfolio Value ($)',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',  // Set y-axis tick labels (prices) color to white
+                        beginAtZero: false  // Ensure the y-axis does not start at 0
+                    },
+
+                }
+            }
+        }
+    });
+</script>

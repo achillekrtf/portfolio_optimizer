@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saisie des stocks et des dates</title>
+
+    <!-- Fonts and Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    <!-- Internal Styles -->
+    <style>
+        .ui-autocomplete {
+            background-color: #1c1c1e;
+            border: 1px solid #f4a261;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .ui-menu-item-wrapper {
+            color: #ffffff;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .ui-menu-item-wrapper:hover {
+            background-color: #f4a261;
+            color: #0c0c0d;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo_finary.png') }}" alt="Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Fonctionnalités</a></li>
+                <li><a href="#">Tarifs</a></li>
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn">Se connecter</button>
+                <button class="btn btn-primary">Inscription</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="text-and-image">
+                <div class="text-content">
+                    <h1>Découvrez notre nouvel outil d'optimisation de portefeuille</h1>
+                    <p>Gérez vos stocks facilement avec notre outil intuitif.</p>
+                </div>
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/Illustration_Graph.jpg') }}" alt="Optimisation Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="carousel-section">
+        <div class="carousel">
+            <div><img src="{{ url_for('static', filename='images/Apple.png') }}" alt="Apple"></div>
+            <div><img src="{{ url_for('static', filename='images/Facebook.png') }}" alt="Facebook"></div>
+            <div><img src="{{ url_for('static', filename='images/Tesla.png') }}" alt="Tesla"></div>
+            <div><img src="{{ url_for('static', filename='images/Google.png') }}" alt="Google"></div>
+            <div><img src="{{ url_for('static', filename='images/logo_bitcoin.png') }}" alt="Bitcoin"></div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Pourquoi utiliser un optimisateur de portefeuille ?</h2>
+        <div class="features-container">
+            <div class="feature-item">
+                <img src="{{ url_for('static', filename='images/Illustration_Rendement.jpg') }}" alt="Optimisation des rendements">
+                <p class="title">Optimisation des rendements</p>
+                <p class="description">Maximiser le ratio rendement/risque de votre portefeuille.</p>
+            </div>
+            <div class="feature-item">
+                <img src="{{ url_for('static', filename='images/Illustration_Graph_Hand.jpg') }}" alt="Gestion efficace des ressources">
+                <p class="title">Gestion efficace des ressources</p>
+                <p class="description">Allouez intelligemment vos différents actifs pour un équilibre optimal.</p>
+            </div>
+            <div class="feature-item">
+                <img src="{{ url_for('static', filename='images/Illustration_Lock.jpg') }}" alt="Réduction des risques">
+                <p class="title">Réduction des risques</p>
+                <p class="description">Minimisez les risques liés à votre portefeuille en analysant les différentes corrélations entre vos actifs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <div class="container">
+            <h2>Entrez vos informations</h2>
+            <form action="/graph" method="post">
+                <div id="stock-inputs">
+                    <div class="form-group">
+                        <label for="stocks">Stock :</label>
+                        <input type="text" class="stock-input" name="stocks" autocomplete="off" required>
+                    </div>
+                </div>
+                <button type="button" id="add-stock" class="btn btn-secondary">Ajouter un autre stock</button>
+
+                <section class="form-objective">
+                    <label for="optimizationObjective">Objectif d'optimisation :</label>
+                    <select id="optimizationObjective" name="dataInput" required>
+                        <option value="MinRisk">MinRisk</option>
+                        <option value="Utility">Utility</option>
+                        <option value="Sharpe">Sharpe</option>
+                        <option value="MaxRet">ERC</option>
+                    </select>
+                </section>
+
+                <div class="form-tolerance">
+                    <label for="riskTolerance">Tolérance au risque :</label>
+                    <input type="range" id="riskTolerance" name="riskTolerance" min="0" max="10" value="2" step="1" required>
+                    <div class="range-labels">
+                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                    </div>
+                </div>
+
+                <input type="submit" value="Générer le graphique" class="btn btn-primary">
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Finary. Tous droits réservés.</p>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script>
+        $(function() {
+            function setupAutocomplete(element) {
+                $(element).autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "/search",
+                            data: { query: request.term },
+                            success: function(data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    minLength: 2
+                }).autocomplete("instance")._renderItem = function(ul, item) {
+                    return $("<li>")
+                        .append('<div class="ui-menu-item-wrapper"><span>' + item.label + '</span></div>')
+                        .appendTo(ul);
+                };
+            }
+
+            setupAutocomplete(".stock-input");
+
+            $("#add-stock").click(function() {
+                var newInput = $('<div class="form-group"><label for="stocks">Stock :</label><input type="text" class="stock-input" name="stocks" autocomplete="off"></div>');
+                $("#stock-inputs").append(newInput);
+                setupAutocomplete(newInput.find('.stock-input'));
+            });
+
+            $('.carousel').slick({
+                infinite: true,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                speed: 500,
+                arrows: false,
+                dots: true,
+                responsive: [
+                    { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+                    { breakpoint: 600, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+                    { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

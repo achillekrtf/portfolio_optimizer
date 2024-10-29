@@ -1,0 +1,606 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    background-color: #0c0c0d;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+/* Header */
+header {
+    background-color:#141415;
+    padding: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo img {
+    width: 150px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Navigation Buttons */
+.nav-buttons .btn {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px; /* Rounded corners */
+    font-family: 'Outfit', sans-serif; /* Applying the Outfit font */
+    font-weight: 500; /* Font weight for a modern look */
+}
+
+.nav-buttons .btn:hover {
+    background-color: #ffffff;
+    color: #0c0c0d;
+}
+
+.nav-buttons .btn-primary {
+    background-color: #f4a261;
+    border: none;
+    color: #0c0c0d;
+    font-family: 'Outfit', sans-serif; /* Applying the Outfit font */
+    font-weight: 600; /* Slightly bolder for the primary button */
+}
+
+.nav-buttons .btn-primary:hover {
+    background-color: #e76f51;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(0deg, #191a1f,#24201c);
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left; /* Aligns text to the left */
+    padding: 20px;
+}
+
+.text-content {
+    flex: 1; /* Allows the text content to take more space */
+}
+
+.text-and-image {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Space between text and image */
+    flex-wrap: wrap; /* Makes it responsive */
+}
+
+.text-content {
+    max-width: 70%; /* Limit the text width */
+}
+
+.image-content img {
+    max-width: 500px; /* Set a maximum width for the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 15px; /* Arrondir les coins de l'image */
+    margin-right: 20px; /* Réduit l'espace à gauche de l'image */
+    align-self: flex-start;
+
+}
+
+@media (max-width: 768px) {
+    /* Stack the image and text vertically on smaller screens */
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .image-content img {
+        margin: 20px 0;
+    }
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* Carousel Section */
+.carousel-section {
+    padding: 5px;
+    background-color: #191a1f;
+}
+
+.carousel img {
+    width: 100%;
+    height: auto;
+}
+/* Container for the whole section */
+.features {
+    text-align: center;
+    padding: 60px 0; /* Augmenté pour plus d'espace */
+    background-color: #f9f9f9; /* Ajoutez un fond si nécessaire */
+}
+
+/* Container for the feature items */
+.features-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px; /* Espace entre les images */
+}
+
+/* Individual feature items */
+.feature-item {
+    text-align: center;
+    max-width: 250px; /* Augmenté pour plus de contenu */
+    position: relative;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #0A0A0A; /* Choisissez la couleur souhaitée */
+}
+
+/* Style for images */
+.feature-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Enlarge image slightly on hover */
+.feature-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Title under the images */
+.feature-item .title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #333;
+}
+
+/* Descriptions under the title */
+.feature-item .description {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.4;
+    padding: 0 10px; /* Pour donner un peu d'espace autour du texte */
+}
+
+/* Hidden hover text */
+.hover-text {
+    display: none; /* Hide the text initially */
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Show hover text on hover */
+.feature-item:hover .hover-text {
+    display: block;
+}
+
+/* Adjust section layout for larger screens */
+@media (min-width: 768px) {
+    .features-container {
+        gap: 60px;
+    }
+}
+
+
+
+/* Global Styles */
+body {
+    font-family: 'Outfit', sans-serif; /* Applying the Outfit font to the entire document */
+}
+
+/* Form Section */
+.form-section {
+    padding: 40px 20px;
+    background: linear-gradient(#191a1f,#24201c);
+}
+
+.form-section .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: linear-gradient(#191a1f,#24201c);
+    border-radius: 10px;
+}
+
+.form-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 600; /* Applying a bold weight from the Outfit font */
+}
+
+.form-section .form-group {
+    margin-bottom: 20px;
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 500; /* Slightly bolder label text */
+}
+
+.form-section input[type="text"],
+.form-section input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #2c2c2e;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif; /* Applying the Outfit font to input fields */
+    font-size: 1rem;
+}
+
+.form-section input[type="submit"] {
+    padding: 10px;
+    background-color: #f4a261;
+    border: none;
+    color: #0c0c0d;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2rem;
+    font-family: 'Outfit', sans-serif; /* Applying the Outfit font to the submit button */
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form-section input[type="submit"]:hover {
+    background-color: #e76f51;
+}
+
+/* Add Stock Button */
+#add-stock {
+    background-color: #1c1c1e;
+    color: #ffffff;
+    border: 2px dashed #f4a261;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-family: 'Outfit', sans-serif; /* Applying the Outfit font to the Add Stock button */
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#add-stock:hover {
+    background-color: #2c2c2e;
+    color: #f4a261;
+}
+
+/* Autocomplete Suggestions */
+.ui-autocomplete {
+    background-color: #1c1c1e;
+    border: 1px solid #f4a261;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+}
+
+.ui-menu-item-wrapper {
+    color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.ui-menu-item-wrapper:hover {
+    background-color: #f4a261;
+    color: #0c0c0d;
+}
+
+/* Footer */
+footer {
+    background-color: #0c0c0d;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Carousel */
+.carousel {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.carousel img {
+    display: block;
+    width: auto;
+    height: 100px; /* Ajustez cette valeur selon la hauteur désirée */
+    object-fit: contain; /* Assure que l'image est contenue dans la boîte sans déformation */
+    margin: 0 auto; /* Centre l'image horizontalement */
+}
+
+/* Ajoutez des styles pour les éléments du carrousel si nécessaire */
+.carousel .slick-slide {
+    display: flex;
+    align-items: center; /* Aligne verticalement les images au centre */
+    justify-content: center; /* Centre les images horizontalement */
+}
+ .ui-autocomplete {
+            max-height: 150px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+.gradient-text {
+            font-size: 2rem;
+            font-weight: bold;
+            background-image: linear-gradient(45deg, #eaddd5, #ddb28c);
+            -webkit-background-clip: text; /* Pour Safari */
+            background-clip: text;
+            color: transparent;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Optionnel: ajout d'une ombre pour mieux voir le texte sur des fonds clairs */
+}
+
+
+/* Form Objective Styling */
+.form-objective {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #2c2c2e; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for card-like feel */
+}
+
+/* Label for the select dropdown */
+.form-objective label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-family: 'Outfit', sans-serif; /* Use Outfit font */
+    color: #f9f9f9; /* Dark text for contrast */
+}
+
+/* Customizing the select dropdown */
+.form-objective select {
+    width: 100%; /* Full width for better UI */
+    padding: 12px; /* Padding for spacing */
+    border: 2px solid #f4a261; /* Light gray border */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    background-color: #f9f9f9; /* Light background */
+    font-size: 1rem; /* Font size */
+    font-family: 'Outfit', sans-serif; /* Use Outfit font */
+    color: #333; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for interaction */
+    appearance: none; /* Remove default browser styling */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNMy42MzQgNC42MzQuNzA5IDcuNTUzYy0uOTM5LjkyMi0uMjUgMi40NTguOTY2IDIuNDU4aDguNjczYzEuMjIzIDAgMS44OTUtMS41MzQgLjk2Ni0yLjQ1OEw5LjM2NiA0LjYzNGEyLjIwOSAyLjIwOSAwIDAgMC0zLjA3MiAwem0uNTQxLjU0MmExLjUwOSAxLjUwOSAwIDAgMSAyLjEyOCAwbDEuOTI1IDEuOTI2Yy41ODQuNTg0LjE2MiAxLjU5My0uNzQ2IDEuNTkzaC04LjY3M2MtLjkwOCAwLTEuMzMzLTEuMDA5LS43NDYtMS41OTNsMS45MjYtMS45MjZhMS41MDkgMS41MDkgMCAwIDEgMi4xMjggMHoiLz48L3N2Zz4='); /* Custom arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 12px center; /* Position the arrow on the right */
+    background-size: 16px; /* Adjust arrow size */
+}
+
+/* Focus state for the select dropdown */
+.form-objective select:focus {
+    border-color: #f4a261; /* Orange border when focused */
+    box-shadow: 0 0 5px rgba(244, 162, 97, 0.5); /* Orange shadow on focus */
+    outline: none; /* Remove the default outline */
+}
+
+/* Styling the options inside the select */
+.form-objective select option {
+    padding: 10px;
+    font-family: 'Outfit', sans-serif; /* Consistent font for options */
+    color: #333;
+}
+
+/* For Safari-specific padding fix */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .form-objective select {
+        padding-right: 30px; /* Extra space for the custom arrow in Safari */
+    }
+    /* Form Tolerance Section */
+.form-tolerance {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #2c2c2e; /* White background for the container */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.form-tolerance label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-family: 'Outfit', sans-serif; /* Outfit font */
+    color: #ddd; /* Darker text for contrast */
+}
+
+/* Custom range input slider */
+.form-tolerance input[type="range"] {
+    -webkit-appearance: none; /* Remove default browser styles */
+    appearance: none; /* Cross-browser reset */
+    width: 100%; /* Full width slider */
+    height: 8px;
+    background-color: #2c2c2e; /* Light background for the slider track */
+    border-radius: 5px; /* Rounded corners for the slider track */
+    outline: none;
+    transition: background 0.3s ease; /* Smooth transition when the slider is moved */
+    margin-bottom: 20px;
+}
+
+/* Customizing the slider thumb */
+.form-tolerance input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default browser styles */
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #f4a261; /* Orange thumb */
+    border-radius: 50%; /* Circular thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease;
+}
+
+/* Firefox thumb */
+.form-tolerance input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #f4a261; /* Orange thumb for Firefox */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    transition: background-color 0.3s ease;
+}
+
+/* When slider is focused or hovered, change the thumb color */
+.form-tolerance input[type="range"]:focus::-webkit-slider-thumb {
+    background-color: #e76f51; /* Darker orange on focus */
+}
+
+.form-tolerance input[type="range"]:hover::-webkit-slider-thumb {
+    background-color: #e76f51; /* Darker orange on hover */
+}
+
+/* Track styles */
+.form-tolerance input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background-color: #ddd; /* Gray track */
+    border-radius: 5px ;
+}
+
+.form-tolerance input[type="range"]::-moz-range-track {
+    height: 8px;
+    background-color: #2c2c2e;
+    border-radius: 5px;
+}
+
+/* Labels for the slider values (0-10) */
+.range-labels {
+    display: flex;
+    justify-content: space-between; /* Space labels evenly */
+    font-size: 0.9rem;
+    color: #666;
+    font-family: 'Outfit', sans-serif; /* Outfit font for labels */
+}
+
+.range-labels span {
+    text-align: center;
+    width: 10%; /* Evenly distribute labels */
+}
+.chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 500px;
+        margin: 20px 0;
+    }
+
+    #chart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;}
+}
+
+.tooltip {
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  pointer-events: none; /* Prevents the tooltip from affecting layout */
+  opacity: 0; /* Ensure it starts invisible */
+  transition: opacity 0.2s; /* Smooth fade in/out */
+}
+/* Ensure enough space between sections */
+.stats-section {
+    margin-bottom: 40px; /* Space between stats and charts */
+    text-align: center; /* Center the stats */
+}
+
+
+ .form-section {
+        margin: 20px 0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    .stats-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .stat-item {
+        flex: 1;
+        margin: 0 10px;
+        padding: 10px;
+        background-color: #f4a261;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .chart-item {
+        flex: 1;
+        margin: 0 10px;
+        text-align: center;
+    }
+
+    #Correlation {
+        width: 100%;
+        height: 500px;}
+
