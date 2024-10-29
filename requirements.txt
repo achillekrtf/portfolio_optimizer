@@ -12,10 +12,12 @@ attrs==23.2.0
 Babel==2.15.0
 beautifulsoup4==4.12.3
 bleach==6.1.0
+blinker==1.8.2
 certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
 clarabel==0.7.1
+click==8.1.7
 colorama==0.4.6
 comm==0.2.2
 contourpy==1.2.1
@@ -28,6 +30,7 @@ ecos==2.0.13
 exceptiongroup==1.2.1
 executing==2.0.1
 fastjsonschema==2.19.1
+Flask==3.0.3
 fonttools==4.51.0
 fqdn==1.5.1
 frozendict==2.4.4
@@ -42,6 +45,7 @@ ipykernel==6.29.4
 ipython==8.18.1
 ipywidgets==8.1.2
 isoduration==20.11.0
+itsdangerous==2.2.0
 jedi==0.19.1
 Jinja2==3.1.4
 joblib==1.4.2
@@ -112,7 +116,7 @@ rfc3986-validator==0.1.1
 Riskfolio-Lib==6.1.1
 rpds-py==0.18.1
 scikit-learn==1.4.2
-scipy==1.11.4
+scipy==1.13.1
 scs==3.2.4.post1
 Send2Trash==1.8.3
 six==1.16.0
@@ -135,6 +139,7 @@ wcwidth==0.2.13
 webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.8.0
+Werkzeug==3.0.3
 widgetsnbextension==4.0.10
 XlsxWriter==3.2.0
 yfinance==0.2.38
