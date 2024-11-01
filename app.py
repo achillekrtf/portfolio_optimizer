@@ -54,7 +54,7 @@ def generate_graph():
         current_rf = rf_data["Adj Close"].iloc[0] / 100  # Convert to decimal (e.g., 0.02 for 2%)
 
         returns = data.pct_change().dropna()
-        annual_returns = returns.resample('Y').apply(lambda x: (1 + x).prod() - 1)
+        annual_returns = returns.resample('YE').apply(lambda x: (1 + x).prod() - 1)
 
         port = rp.Portfolio(returns=returns)
         port.assets_stats(method_mu='hist', method_cov='hist')
