@@ -27,14 +27,21 @@ nav {
     margin: 0 auto;
 }
 
+.logo {
+    display: flex;
+}
 .logo img {
     width: 150px;
+
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
+    flex-wrap: wrap; /* Permet aux liens de passer à la ligne si nécessaire */
+    justify-content: center; /* Centre les liens si l'espace est réduit */
+
 }
 
 .nav-links li a {
@@ -44,6 +51,12 @@ nav {
 }
 
 /* Navigation Buttons */
+
+.nav-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux boutons de se réorganiser si nécessaire */
+    gap: 10px;
+}
 .nav-buttons .btn {
     background-color: transparent;
     border: 1px solid #ffffff;
@@ -55,6 +68,7 @@ nav {
     border-radius: 5px; /* Rounded corners */
     font-family: 'Outfit', sans-serif; /* Applying the Outfit font */
     font-weight: 500; /* Font weight for a modern look */
+
 }
 
 .nav-buttons .btn:hover {
@@ -109,12 +123,10 @@ nav {
 }
 
 .image-content img {
-    max-width: 500px; /* Set a maximum width for the image */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 15px; /* Arrondir les coins de l'image */
-    margin-right: 20px; /* Réduit l'espace à gauche de l'image */
-    align-self: flex-start;
-
+    max-width: 100%; /* Permet à l'image de ne jamais dépasser la largeur de son conteneur */
+    width: 30vw; /* Ajuste la largeur de l'image en fonction de l'écran */
+    height: auto; /* Garde le ratio de l'image */
+    border-radius: 15px;
 }
 
 @media (max-width: 768px) {
@@ -129,15 +141,25 @@ nav {
 }
 
 .hero-content h1 {
-    font-size: 4rem;
+    font-size: 4vw; /* Ajuste la taille du titre en fonction de la largeur de l'écran */
     margin-bottom: 20px;
 }
 
 .hero-content p {
-    font-size: 1.5rem;
+    font-size: 1.5vw; /* Taille du paragraphe dépendant de la largeur de l'écran */
     margin-bottom: 20px;
 }
+/* Alignement horizontal et ajustement pour les petits écrans */
+@media (max-width: 768px) {
+    .nav-links li {
+        flex: 1 1 auto; /* Les liens prennent une largeur flexible */
+        text-align: center;
+    }
 
+    .nav-links li a {
+        font-size: 14px; /* Réduction de la taille de police pour les petits écrans */
+    }
+}
 /* Carousel Section */
 .carousel-section {
     padding: 5px;
@@ -147,6 +169,33 @@ nav {
 .carousel img {
     width: 100%;
     height: auto;
+    max-width: 100%; /* Limite la largeur à celle de son conteneur */
+    object-fit: cover; /* Ajuste l'image pour bien remplir son conteneur sans déformation */
+    max-height: 70vh; /* Limite la hauteur à 70% de la hauteur de la fenêtre */
+    object-fit: cover; /* Garde l'image bien ajustée au conteneur */
+}
+
+/* Media queries pour ajuster la taille maximale des images */
+@media (max-width: 1200px) {
+    .carousel img {
+        max-width: 50%; /* Limite la largeur de l'image pour les écrans de taille moyenne */
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel img {
+        max-width: 50%; /* Ajuste légèrement la taille pour les tablettes */
+        max-height: 50vh; /* Réduit la hauteur de l'image à 50% de la hauteur de l'écran */
+
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel img {
+        max-width: 100%; /* Utilise toute la largeur disponible sur les petits écrans */
+        max-height: 40vh; /* Réduit encore la hauteur pour les très petits écrans */
+
+    }
 }
 /* Container for the whole section */
 .features {
@@ -222,10 +271,54 @@ nav {
     display: block;
 }
 
-/* Adjust section layout for larger screens */
-@media (min-width: 768px) {
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
     .features-container {
-        gap: 60px;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .feature-item {
+        padding: 15px;
+    }
+
+    .feature-item img {
+        max-width: 120px; /* Réduit la taille de l'image */
+    }
+
+    .feature-item .title {
+        font-size: 16px;
+    }
+
+    .feature-item .description {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .features {
+        padding: 20px 10px;
+    }
+
+    .features h2 {
+        font-size: 20px; /* Réduit la taille du titre */
+    }
+
+    .feature-item {
+        padding: 10px;
+    }
+
+    .feature-item img {
+        max-width: 100px; /* Plus petit pour les très petits écrans */
+    }
+
+    .feature-item .title {
+        font-size: 14px;
+    }
+
+    .feature-item .description {
+        font-size: 12px;
     }
 }
 
@@ -344,6 +437,8 @@ footer {
     color: #ffffff;
     text-align: center;
     padding: 20px 0;
+     position: relative;
+    z-index: 10;
 }
 
 /* Carousel */
@@ -358,6 +453,8 @@ footer {
     height: 100px; /* Ajustez cette valeur selon la hauteur désirée */
     object-fit: contain; /* Assure que l'image est contenue dans la boîte sans déformation */
     margin: 0 auto; /* Centre l'image horizontalement */
+    max-height: 70vh; /* Limite la hauteur à 70% de la hauteur de la fenêtre */
+    object-fit: cover; /* Garde l'image bien ajustée au conteneur */
 }
 
 /* Ajoutez des styles pour les éléments du carrousel si nécessaire */
@@ -419,7 +516,6 @@ footer {
     cursor: pointer; /* Pointer cursor on hover */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for interaction */
     appearance: none; /* Remove default browser styling */
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNMy42MzQgNC42MzQuNzA5IDcuNTUzYy0uOTM5LjkyMi0uMjUgMi40NTguOTY2IDIuNDU4aDguNjczYzEuMjIzIDAgMS44OTUtMS41MzQgLjk2Ni0yLjQ1OEw5LjM2NiA0LjYzNGEyLjIwOSAyLjIwOSAwIDAgMC0zLjA3MiAwem0uNTQxLjU0MmExLjUwOSAxLjUwOSAwIDAgMSAyLjEyOCAwbDEuOTI1IDEuOTI2Yy41ODQuNTg0LjE2MiAxLjU5My0uNzQ2IDEuNTkzaC04LjY3M2MtLjkwOCAwLTEuMzMzLTEuMDA5LS43NDYtMS41OTNsMS45MjYtMS45MjZhMS41MDkgMS41MDkgMCAwIDEgMi4xMjggMHoiLz48L3N2Zz4='); /* Custom arrow icon */
     background-repeat: no-repeat;
     background-position: right 12px center; /* Position the arrow on the right */
     background-size: 16px; /* Adjust arrow size */
@@ -604,3 +700,36 @@ footer {
         width: 100%;
         height: 500px;}
 
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+    .stats-section {
+        flex-direction: column; /* Stack the stats vertically */
+        align-items: center; /* Center items */
+        margin-bottom: 20px; /* Maintain space below section */
+    }
+
+    .stat-item {
+        margin: 10px 0; /* Vertical margin between stat items */
+        padding: 15px; /* Increase padding for better touch targets */
+        width: 90%; /* Width adjustment for small screens */
+    }
+
+    .chart-item {
+        margin: 10px 0; /* Vertical margin for charts */
+        width: 90%; /* Make the chart item full width on mobile */
+    }
+
+    #Correlation {
+        height: 300px; /* Reduce height of charts on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .stat-item {
+        padding: 10px; /* Slightly reduce padding for very small screens */
+    }
+
+    #Correlation {
+        height: 200px; /* Further reduce height for very small screens */
+    }
+}
