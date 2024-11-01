@@ -3,3 +3,4 @@ pandas==2.2.2
 yfinance==0.2.38
 Riskfolio-lib==6.1.1
 numpy==1.26.4
+gunicorn
